@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "editDocument": "node scripts/editDocument.js"
   },
   "dependencies": {
     "@sanity/image-url": "^1.1.0",
