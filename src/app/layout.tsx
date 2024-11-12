@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
-import './globals.css';
+import '../styles/index.scss';
 
+// TODO: Async fetch metadata
 export const metadata: Metadata = {
   title: 'Anton Axell',
   description: 'Portfolio page of Architect Anton Axell',
