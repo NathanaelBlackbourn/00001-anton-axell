@@ -1,0 +1,60 @@
+@import './breakpoints';
+
+@mixin type-xl {
+  font-family: var(--font-source-serif);
+  font-size: 128px;
+  font-style: italic;
+  font-weight: 370;
+  font-optical-sizing: 20;
+}
+
+@mixin type-md {
+  font-family: var(--font-source-serif);
+  font-size: 32px;
+  line-height: 34px;
+  font-weight: 400;
+  font-variation-settings: 'opsz' 48;
+  letter-spacing: -0.03em;
+
+  @media (min-width: $md) {
+    font-size: 48px;
+    line-height: 50px;
+  }
+}
+
+@mixin type-sm {
+  font-family: var(--font-source-serif);
+  font-size: 24px;
+  font-weight: 400;
+  font-variation-settings: 'opsz' 48;
+  letter-spacing: -0.03em;
+
+  @media (min-width: $md) {
+    font-size: 32px;
+    line-height: 36px;
+  }
+}
+
+@mixin type-body {
+  font-family: var(--font-source-serif);
+  font-size: 14px;
+  font-weight: 400;
+  font-variation-settings: 'opsz' 48;
+  letter-spacing: -0.03em;
+
+  @media (min-width: $md) {
+    font-size: 18px;
+    line-height: 24px;
+  }
+}
+
+@mixin type-secondary {
+  font-family: var(--font-ibm-plex-mono);
+  font-size: 8px;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+
+  @media (min-width: $md) {
+    font-size: 10px;
+  }
+}
