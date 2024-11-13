@@ -4,6 +4,7 @@ import { Source_Serif_4, IBM_Plex_Mono } from 'next/font/google';
 
 const sourceSerif = Source_Serif_4({
   subsets: ['latin'],
+  style: ['normal', 'italic'],
   variable: '--font-source-serif',
 });
 
