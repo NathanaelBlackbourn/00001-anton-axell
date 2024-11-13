@@ -8,7 +8,7 @@ const opts = {
 
 const updateSchema = spawn('npx', ['sanity', 'schema', 'extract'], opts);
 
-updateSchema.on('close', (code) => {
+updateSchema.on('close', (code: number) => {
   if (code !== 0) {
     console.log(`First command exited with code ${code}`);
     return;
