@@ -1,6 +1,6 @@
-import { spawn, SpawnOptions } from 'child_process';
+const { spawn } = require('child_process');
 
-const opts: SpawnOptions = {
+const opts = {
   cwd: process.cwd(),
   stdio: 'inherit',
   shell: true,
