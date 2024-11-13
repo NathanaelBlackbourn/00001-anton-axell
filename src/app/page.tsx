@@ -1,9 +1,9 @@
 import { client } from '@/sanity/lib/client';
+import { HOME_PAGE_QUERY } from '@/sanity/queries/pages/homePageQuery';
 import HomePageTemplate from '@/templates/HomePageTemplate';
-import { groq } from 'next-sanity';
 
 export default async function Home() {
-  const data = await client.fetch(groq`*[_type == "homePage"][0]`);
+  const data = await client.fetch(HOME_PAGE_QUERY);
 
-  return <HomePageTemplate {...data} />;
+  return data ? <HomePageTemplate {...data} /> : null;
 }

@@ -143,3 +143,23 @@ export type HomePage = {
 
 export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData | HomePage;
 export declare const internalGroqTypeReferenceTo: unique symbol;
+// Source: ./src/sanity/queries/pages/homePageQuery.ts
+// Variable: HOME_PAGE_QUERY
+// Query: *[_type == "homePage"][0]
+export type HOME_PAGE_QUERYResult = {
+  _id: string;
+  _type: "homePage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  introText?: string;
+} | null;
+
+// Query TypeMap
+import "@sanity/client";
+declare module "@sanity/client" {
+  interface SanityQueries {
+    "*[_type == \"homePage\"][0]": HOME_PAGE_QUERYResult;
+  }
+}
