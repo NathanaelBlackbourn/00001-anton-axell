@@ -1,3 +1,4 @@
+import registerGSAPPlugins from '@/lib/registerGSAPPlugins';
 import '../styles/_globals.scss';
 import { Source_Serif_4, IBM_Plex_Mono } from 'next/font/google';
 
@@ -18,6 +19,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  registerGSAPPlugins();
+
   return (
     <html
       lang="en"
