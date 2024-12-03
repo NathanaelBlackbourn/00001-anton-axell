@@ -1,4 +1,3 @@
-import type { Metadata } from 'next';
 import '../styles/_globals.scss';
 import { Source_Serif_4, IBM_Plex_Mono } from 'next/font/google';
 
@@ -13,12 +12,6 @@ const ibmPlexMono = IBM_Plex_Mono({
   subsets: ['latin'],
   variable: '--font-ibm-plex-mono',
 });
-
-// TODO: Async fetch metadata
-export const metadata: Metadata = {
-  title: 'Anton Axell',
-  description: 'Portfolio page of Architect Anton Axell',
-};
 
 export default function RootLayout({
   children,
