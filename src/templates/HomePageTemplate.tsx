@@ -1,17 +1,11 @@
 import { HOME_PAGE_QUERYResult } from '@/sanity/types';
 import classes from './HomePageTemplate.module.scss';
+import HomePageHeader from '@/components/HomePageHeader/HomePageHeader';
 
-const HomePageTemplate = ({
-  introText,
-}: NonNullable<HOME_PAGE_QUERYResult>) => {
+const HomePageTemplate = ({}: NonNullable<HOME_PAGE_QUERYResult>) => {
   return (
     <div className={classes['container']}>
-      <h1 className={classes['heading']}>
-        <span className={classes['span-one']}>Anton</span>
-        <span className={classes['span-two']}>Axell,</span>
-        <span className={classes['span-three']}>Architect</span>
-      </h1>
-      <p className={classes['intro-text']}>{introText}</p>
+      <HomePageHeader />
     </div>
   );
 };

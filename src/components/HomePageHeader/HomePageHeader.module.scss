@@ -1,0 +1,24 @@
+@import '../../styles/typography';
+@import '../../styles/layout';
+
+.heading {
+  @include grid-main;
+  @include type-xl;
+
+  grid-column: 1 / 17;
+
+  padding-bottom: 15px;
+
+  .span-one {
+    grid-column: 1 / 5;
+  }
+
+  .span-two {
+    grid-column: 5 / 9;
+  }
+
+  .span-three {
+    grid-column: 9 / 17;
+    text-align: right;
+  }
+}
