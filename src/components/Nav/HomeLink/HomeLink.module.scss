@@ -1,0 +1,9 @@
+.collapsible {
+  display: inline-block;
+  width: 0;
+  overflow: hidden;
+}
+
+.cell {
+  grid-column: 1 / 5;
+}

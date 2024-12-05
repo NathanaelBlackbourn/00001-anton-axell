@@ -1,0 +1,12 @@
+@import '../../styles/colors';
+@import '../../styles/typography';
+
+.blur-frame {
+  @include type-secondary;
+
+  background-color: $color-bg-60;
+  backdrop-filter: blur(7px);
+
+  padding: 7px 10px;
+  border-radius: 2px;
+}

@@ -1,0 +1,7 @@
+@import '../../styles/layout';
+
+.nav {
+  @include grid-main;
+
+  grid-column: 1 / 17;
+}

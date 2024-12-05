@@ -1,13 +1,17 @@
 @import '../../styles/typography';
 @import '../../styles/layout';
 
+.container {
+  grid-column: 1 / 17;
+  overflow: hidden;
+  height: 0;
+}
+
 .heading {
   @include grid-main;
   @include type-xl;
 
-  grid-column: 1 / 17;
-
-  padding-bottom: 15px;
+  width: 100%;
 
   .span-one {
     grid-column: 1 / 5;
