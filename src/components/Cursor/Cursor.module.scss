@@ -1,0 +1,22 @@
+@import '../../styles/variables/colors.module.scss';
+
+$cursor-size: 50px;
+
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  height: $cursor-size;
+  width: $cursor-size;
+
+  border-radius: 50%;
+
+  background-color: $color-yellow;
+
+  pointer-events: none;
+}
+
+:export {
+  cursorSize: $cursor-size;
+}
