@@ -1,5 +1,5 @@
-@import '../../styles/colors';
-@import '../../styles/typography';
+@import '../../styles/variables/colors.module.scss';
+@import '../../styles/variables/typography.module.scss';
 
 .blur-frame {
   @include type-secondary;

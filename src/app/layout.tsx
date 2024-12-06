@@ -1,5 +1,5 @@
 import registerGSAPPlugins from '@/lib/registerGSAPPlugins';
-import '../styles/_globals.scss';
+import '../styles/globals.scss';
 import { Source_Serif_4, IBM_Plex_Mono } from 'next/font/google';
 
 const sourceSerif = Source_Serif_4({
