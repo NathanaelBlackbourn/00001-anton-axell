@@ -1,11 +1,22 @@
 import registerGSAPPlugins from '@/lib/registerGSAPPlugins';
 import '../styles/globals.scss';
-import { Source_Serif_4, IBM_Plex_Mono } from 'next/font/google';
+import {
+  Source_Serif_4,
+  IBM_Plex_Mono,
+  Cormorant_Garamond,
+} from 'next/font/google';
 
 const sourceSerif = Source_Serif_4({
   subsets: ['latin'],
   style: ['normal', 'italic'],
   variable: '--font-source-serif',
+});
+
+const cormorantGaramond = Cormorant_Garamond({
+  weight: ['300', '400', '500'],
+  subsets: ['latin'],
+  style: ['normal', 'italic'],
+  variable: '--font-cormorant-garamond',
 });
 
 const ibmPlexMono = IBM_Plex_Mono({
@@ -24,7 +35,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${sourceSerif.variable} ${ibmPlexMono.variable}`}
+      className={`
+        ${sourceSerif.variable} 
+        ${cormorantGaramond.variable} 
+        ${ibmPlexMono.variable}
+      `}
     >
       <body>{children}</body>
     </html>
