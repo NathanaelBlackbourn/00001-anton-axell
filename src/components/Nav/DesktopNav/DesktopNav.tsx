@@ -4,10 +4,17 @@ import classes from './DesktopNav.module.scss';
 const DesktopNav = () => {
   return (
     <>
-      <BlurCell className={classes['about-cell']}>About</BlurCell>
-      <BlurCell className={classes['contact-cell']}>Contact</BlurCell>
-      <BlurCell className={classes['projects-cell']}>Projects</BlurCell>
-      <BlurCell className={classes['texts-cell']}>Texts</BlurCell>
+      {['About', 'Projects', 'Contact', 'Texts'].map((item, i) => (
+        <div className={classes[`${item.toLowerCase()}-col`]} key={i}>
+          <BlurCell
+            className={classes[`${item.toLowerCase()}-cell`]}
+            as="button"
+            onClick={() => {}}
+          >
+            {item}
+          </BlurCell>
+        </div>
+      ))}
     </>
   );
 };

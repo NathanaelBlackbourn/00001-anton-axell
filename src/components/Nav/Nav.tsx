@@ -11,7 +11,9 @@ const Nav = () => {
 
   return (
     <nav className={classes['nav']}>
-      <HomeLink />
+      <div className={classes['homelink-col']}>
+        <HomeLink />
+      </div>
       {isDesktop ? <DesktopNav /> : <MobileNav />}
     </nav>
   );
