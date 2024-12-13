@@ -2,18 +2,30 @@
 
 import { useEffect, useRef } from 'react';
 import classes from './Cursor.module.scss';
-import { tweenToPosition } from './animations';
+import { tweenCursorShape, tweenToPosition } from './animations';
+import { useCursor } from '@/lib/contexts/CursorContext';
 
-interface CursorProps {
-  position: { x: number; y: number };
-}
-
-const Cursor = ({ position }: CursorProps) => {
+const Cursor = () => {
   const cursorRef = useRef<HTMLDivElement>(null);
 
+  const { hoverTarget } = useCursor();
+
   useEffect(() => {
-    tweenToPosition(cursorRef, position.x, position.y);
-  }, [position]);
+    const handleMouseMove = (e: MouseEvent) => {
+      !hoverTarget && tweenToPosition(cursorRef, e.clientX, e.clientY);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, [hoverTarget]);
+
+  useEffect(() => {
+    cursorRef.current &&
+      tweenCursorShape(cursorRef.current, hoverTarget && hoverTarget);
+  }, [hoverTarget]);
 
   return <div ref={cursorRef} className={classes['cursor']} />;
 };

@@ -1,5 +1,6 @@
 import classes from './BlurCell.module.scss';
 import React from 'react';
+import Parent from './Parent/Parent';
 
 interface BaseProps {
   children: React.ReactNode;
@@ -20,15 +21,19 @@ interface AnchorProps extends BaseProps {
   href: string;
 }
 
-type Props = DivProps | ButtonProps | AnchorProps;
+export type BlurCellProps = DivProps | ButtonProps | AnchorProps;
 
-const BlurCell = ({ children, as, className }: Props) => {
-  return React.createElement(
-    as || 'div',
-    {
-      className: `${classes['blur-frame']} ${className ? className : ''}`,
-    },
-    children
+const BlurCell = ({ children, ...props }: BlurCellProps) => {
+  return (
+    <Parent {...props}>
+      <div className={classes['blur-bg']} />
+      <div
+        className={`${props.as === 'div' ? '' : classes['z-container']} ${classes['container']}`}
+      >
+        {children}
+      </div>
+    </Parent>
   );
 };
+
 export default BlurCell;

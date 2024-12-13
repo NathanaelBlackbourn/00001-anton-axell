@@ -3,10 +3,10 @@
 import { useRef } from 'react';
 import { useEffect } from 'react';
 import { toggleHeading } from './animations';
-import classes from './HomePageHeader.module.scss';
+import classes from './HomePageHeading.module.scss';
 import { usePathname } from 'next/navigation';
 
-const HomePageHeader = () => {
+const HomePageHeading = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
 
@@ -27,4 +27,4 @@ const HomePageHeader = () => {
   );
 };
 
-export default HomePageHeader;
+export default HomePageHeading;

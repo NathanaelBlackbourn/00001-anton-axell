@@ -1,0 +1,10 @@
+@import '../../../styles/variables/typography.module.scss';
+
+.blur-parent {
+  @include type-secondary;
+  position: relative;
+
+  display: inline-block;
+
+  border-radius: 2px;
+}

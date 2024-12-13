@@ -1,8 +1,6 @@
-import HomePageHeader from '@/components/HomePageHeader/HomePageHeader';
-import Nav from '@/components/Nav/Nav';
-import classes from './layout.module.scss';
 import { Metadata } from 'next';
-
+import Header from '@/components/Header/Header';
+import classes from './layout.module.scss';
 // TODO: Async fetch metadata
 export const metadata: Metadata = {
   title: 'Anton Axell',
@@ -16,11 +14,8 @@ export default function SiteLayout({
 }>) {
   return (
     <>
-      <header className={classes['header']}>
-        <HomePageHeader />
-        <Nav />
-      </header>
-      {children}
+      <Header />
+      <main className={classes['main']}>{children}</main>
     </>
   );
 }

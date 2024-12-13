@@ -1,18 +1,11 @@
 'use client';
 
 import Cursor from '@/components/Cursor/Cursor';
-import {
-  createContext,
-  useContext,
-  useState,
-  useCallback,
-  useEffect,
-} from 'react';
-import cursorStyles from '@/components/Cursor/Cursor.module.scss';
+import { createContext, useContext, useState } from 'react';
 
 interface CursorContextType {
-  position: { x: number; y: number };
-  updatePosition: (x: number, y: number) => void;
+  hoverTarget: HTMLElement | null;
+  setHoverTarget: (target: HTMLElement | null) => void;
 }
 
 const CursorContext = createContext<CursorContextType | null>(null);
@@ -24,25 +17,17 @@ export const useCursor = () => {
 };
 
 export const CursorProvider = ({ children }: { children: React.ReactNode }) => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-
-  const updatePosition = useCallback((x: number, y: number) => {
-    setPosition({ x, y });
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener('mousemove', (e) => {
-      updatePosition(
-        e.clientX - parseInt(cursorStyles.cursorSize) / 2,
-        e.clientY - parseInt(cursorStyles.cursorSize) / 2
-      );
-    });
-  }, [updatePosition]);
+  const [hoverTarget, setHoverTarget] = useState<HTMLElement | null>(null);
 
   return (
-    <CursorContext.Provider value={{ position, updatePosition }}>
+    <CursorContext.Provider
+      value={{
+        hoverTarget,
+        setHoverTarget,
+      }}
+    >
       {children}
-      <Cursor position={position} />
+      <Cursor />
     </CursorContext.Provider>
   );
 };
