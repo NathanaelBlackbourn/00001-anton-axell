@@ -1,11 +1,16 @@
 import BlurCell from '@/components/BlurCell/BlurCell';
 import classes from './DesktopNav.module.scss';
 import About from '../NavItem/About/About';
+import { HEADER_QUERYResult } from '@/sanity/types';
 
-const DesktopNav = () => {
+interface DesktopNavProps {
+  headerData: HEADER_QUERYResult;
+}
+
+const DesktopNav = ({ headerData }: DesktopNavProps) => {
   return (
     <>
-      <About />
+      <About aboutData={headerData.about} />
       {['Projects', 'Contact', 'Texts'].map((item, i) => (
         <div className={classes[`${item.toLowerCase()}-col`]} key={i}>
           <BlurCell

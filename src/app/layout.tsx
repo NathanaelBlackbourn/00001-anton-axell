@@ -5,7 +5,6 @@ import {
   IBM_Plex_Mono,
   Cormorant_Garamond,
 } from 'next/font/google';
-import { CursorProvider } from '@/lib/contexts/CursorContext';
 
 const sourceSerif = Source_Serif_4({
   subsets: ['latin'],
@@ -42,9 +41,7 @@ export default function RootLayout({
         ${ibmPlexMono.variable}
       `}
     >
-      <body>
-        <CursorProvider>{children}</CursorProvider>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

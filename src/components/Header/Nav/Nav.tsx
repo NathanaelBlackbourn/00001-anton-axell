@@ -5,8 +5,13 @@ import HomeLink from './HomeLink/HomeLink';
 import classes from './Nav.module.scss';
 import DesktopNav from './DesktopNav/DesktopNav';
 import MobileNav from './MobileNav/MobileNav';
+import { HEADER_QUERYResult } from '@/sanity/types';
 
-const Nav = () => {
+interface NavProps {
+  headerData: HEADER_QUERYResult;
+}
+
+const Nav = ({ headerData }: NavProps) => {
   const isDesktop = useBreakpoint('lg');
 
   return (
@@ -14,7 +19,7 @@ const Nav = () => {
       <div className={classes['homelink-col']}>
         <HomeLink />
       </div>
-      {isDesktop ? <DesktopNav /> : <MobileNav />}
+      {isDesktop ? <DesktopNav headerData={headerData} /> : <MobileNav />}
     </nav>
   );
 };
