@@ -20,8 +20,8 @@ const HomePageHeading = () => {
     <div className={classes['container']} ref={containerRef}>
       <h1 className={classes['heading']} ref={headingRef}>
         <span className={classes['span-one']}>Anton</span>
-        <span className={classes['span-two']}>Axell,</span>
-        <span className={classes['span-three']}>Architect</span>
+        <span className={classes['span-two']}>Axell</span>
+        <span className={classes['span-three']}>Arkitektur</span>
       </h1>
     </div>
   );
