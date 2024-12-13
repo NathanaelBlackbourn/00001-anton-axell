@@ -3,7 +3,7 @@ import BlurCell from '@/components/BlurCell/BlurCell';
 
 const HomeLink = () => {
   return (
-    <BlurCell as="a" href="/" className={classes['cell']}>
+    <BlurCell as="a" href="/" className={classes['cell']} isHoverable>
       {['nton ', 'xell ', 'rkitektur'].map((wordBody, i) => (
         <span key={i}>
           A<span className={classes['collapsible']}>{wordBody}</span>

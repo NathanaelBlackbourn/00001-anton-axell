@@ -3,6 +3,7 @@ import React from 'react';
 import Parent from './Parent/Parent';
 
 interface BaseProps {
+  isHoverable?: boolean;
   children: React.ReactNode;
   className?: string;
 }

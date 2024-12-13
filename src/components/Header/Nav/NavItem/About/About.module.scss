@@ -1,0 +1,8 @@
+@import '../../../../../styles/variables/typography.module.scss';
+
+.text {
+  @include type-body;
+
+  text-transform: none;
+  //   display: none;
+}

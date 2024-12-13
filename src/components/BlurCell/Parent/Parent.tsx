@@ -1,19 +1,18 @@
 'use client';
 
-import { useCursor } from '@/lib/contexts/CursorContext';
-import React, { useRef } from 'react';
+import React from 'react';
 import { type BlurCellProps } from '../BlurCell';
 import classes from './Parent.module.scss';
+import useHover from '@/lib/hooks/useHover';
 
 const Parent = ({
   children,
   as = 'div',
   className,
+  isHoverable = false,
   ...rest
 }: BlurCellProps) => {
-  const ref = useRef<HTMLElement>(null);
-
-  const { setHoverTarget } = useCursor();
+  const { ref, hoverEvents } = useHover<HTMLElement>();
 
   return React.createElement(
     as,
@@ -21,12 +20,7 @@ const Parent = ({
       className: `${classes['blur-parent']} ${className || ''}`,
       ...rest,
       ref,
-      onMouseEnter: () => {
-        setHoverTarget(ref.current);
-      },
-      onMouseLeave: () => {
-        setHoverTarget(null);
-      },
+      ...(isHoverable ? hoverEvents : {}),
     },
     children
   );

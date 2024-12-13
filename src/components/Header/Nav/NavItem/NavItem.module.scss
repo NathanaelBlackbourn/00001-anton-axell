@@ -1,0 +1,27 @@
+@import '../../../../styles/variables/typography.module.scss';
+
+.container {
+  width: fit-content;
+}
+
+.col-5-9 {
+  grid-column: 5 / 9;
+}
+
+.col-13-17 {
+  grid-column: 13 / 17;
+}
+
+.button {
+  @include type-secondary;
+  text-transform: uppercase;
+}
+
+.children {
+  display: none;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+
+  padding-top: 2em;
+}
