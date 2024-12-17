@@ -47,6 +47,8 @@ const SanityImage = ({ image, className }: SanityImageProps) => {
           alt={image.altText || 'alt'}
           width={width}
           height={width * image.metadata?.dimensions?.aspectRatio}
+          placeholder="blur"
+          blurDataURL={image.metadata?.lqip}
         />
       )}
     </div>
