@@ -165,7 +165,7 @@ export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/queries/headerQuery.ts
 // Variable: HEADER_QUERY
-// Query: {    "about": *[_type == "about"][0],}
+// Query: {    "about": *[_type == "about"][0]{        ...,        image {            ...,            asset->        }    },    // "about": *[_type == "about"][0],}
 export type HEADER_QUERYResult = {
   about: {
     _id: string;
@@ -173,17 +173,33 @@ export type HEADER_QUERYResult = {
     _createdAt: string;
     _updatedAt: string;
     _rev: string;
-    image?: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
+    image: {
+      asset: {
+        _id: string;
+        _type: "sanity.imageAsset";
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        originalFilename?: string;
+        label?: string;
+        title?: string;
+        description?: string;
+        altText?: string;
+        sha1hash?: string;
+        extension?: string;
+        mimeType?: string;
+        size?: number;
+        assetId?: string;
+        uploadId?: string;
+        path?: string;
+        url?: string;
+        metadata?: SanityImageMetadata;
+        source?: SanityAssetSourceData;
+      } | null;
       hotspot?: SanityImageHotspot;
       crop?: SanityImageCrop;
       _type: "image";
-    };
+    } | null;
     text?: string;
   } | null;
 };
@@ -205,7 +221,7 @@ export type HOME_PAGE_QUERYResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "{\n    \"about\": *[_type == \"about\"][0],\n}": HEADER_QUERYResult;
+    "{\n    \"about\": *[_type == \"about\"][0]{\n        ...,\n        image {\n            ...,\n            asset->\n        }\n    },\n    // \"about\": *[_type == \"about\"][0],\n}": HEADER_QUERYResult;
     "*[_type == \"homePage\"][0]": HOME_PAGE_QUERYResult;
   }
 }
