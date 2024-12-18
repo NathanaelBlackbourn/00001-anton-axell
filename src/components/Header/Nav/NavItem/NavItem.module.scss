@@ -4,9 +4,24 @@
   width: fit-content;
 }
 
+.blur-cell {
+  position: relative;
+  width: 100%;
+}
+
 .button {
   @include type-secondary;
   text-transform: uppercase;
+}
+
+.close-button {
+  @include type-secondary;
+  position: absolute;
+  top: 7px;
+  right: 10px;
+
+  opacity: 0;
+  display: none;
 }
 
 .children {
@@ -16,8 +31,4 @@
   overflow: hidden;
 
   padding-top: 2em;
-}
-
-.blur-cell {
-  width: 100%;
 }

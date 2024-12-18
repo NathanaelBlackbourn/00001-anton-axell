@@ -14,17 +14,23 @@ interface NavItemProps {
 const NavItem = ({ label, children }: NavItemProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const childrenRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
   const id = useId();
   const { itemStates, dispatch } = useNavContext();
 
   useEffect(() => {
     containerRef.current &&
       childrenRef.current &&
+      closeButtonRef.current &&
       dispatch({
         type: 'registerItem',
         payload: {
           id,
-          timeline: createTimeline(containerRef.current, childrenRef.current),
+          timeline: createTimeline(
+            containerRef.current,
+            childrenRef.current,
+            closeButtonRef.current
+          ),
         },
       });
   }, [id, containerRef, childrenRef, dispatch]);
@@ -43,6 +49,13 @@ const NavItem = ({ label, children }: NavItemProps) => {
             className={classes['button']}
           >
             {label}
+          </button>
+          <button
+            onClick={() => dispatch({ type: 'toggleItem', payload: { id } })}
+            className={classes['close-button']}
+            ref={closeButtonRef}
+          >
+            ×
           </button>
           <div className={classes['children']} ref={childrenRef}>
             {children}
