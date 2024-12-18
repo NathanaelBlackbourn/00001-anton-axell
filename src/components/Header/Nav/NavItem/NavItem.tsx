@@ -1,33 +1,45 @@
 'use client';
 
 import BlurCell from '@/components/BlurCell/BlurCell';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useId, useRef } from 'react';
 import classes from './NavItem.module.scss';
-import { toggleOpen } from './animations';
+import { createTimeline, toggleOpen } from './animations';
+import { useNavContext } from '@/lib/contexts/NavContext';
 
 interface NavItemProps {
   label: string;
   children: React.ReactNode;
-  colSpan: 'col-5-9' | 'col-13-17';
 }
 
-const NavItem = ({ label, children, colSpan }: NavItemProps) => {
+const NavItem = ({ label, children }: NavItemProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const childrenRef = useRef<HTMLDivElement>(null);
-  const [isOpen, setIsOpen] = useState(false);
+  const id = useId();
+  const { itemStates, dispatch } = useNavContext();
 
   useEffect(() => {
     containerRef.current &&
       childrenRef.current &&
-      toggleOpen(containerRef.current, childrenRef.current, isOpen);
-  }, [containerRef, childrenRef, isOpen]);
+      dispatch({
+        type: 'registerItem',
+        payload: {
+          id,
+          timeline: createTimeline(containerRef.current, childrenRef.current),
+        },
+      });
+  }, [id, containerRef, childrenRef, dispatch]);
+
+  useEffect(() => {
+    const item = itemStates.find((item) => item.id === id);
+    item && toggleOpen(item.timeline, item.isOpen);
+  }, [itemStates, id]);
 
   return (
-    <li className={classes[colSpan]}>
+    <div>
       <div className={classes['container']} ref={containerRef}>
         <BlurCell className={classes['blur-cell']} isHoverable>
           <button
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={() => dispatch({ type: 'toggleItem', payload: { id } })}
             className={classes['button']}
           >
             {label}
@@ -37,7 +49,7 @@ const NavItem = ({ label, children, colSpan }: NavItemProps) => {
           </div>
         </BlurCell>
       </div>
-    </li>
+    </div>
   );
 };
 

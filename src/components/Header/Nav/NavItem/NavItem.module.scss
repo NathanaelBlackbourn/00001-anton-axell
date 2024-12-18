@@ -4,14 +4,6 @@
   width: fit-content;
 }
 
-.col-5-9 {
-  grid-column: 5 / 9;
-}
-
-.col-13-17 {
-  grid-column: 13 / 17;
-}
-
 .button {
   @include type-secondary;
   text-transform: uppercase;

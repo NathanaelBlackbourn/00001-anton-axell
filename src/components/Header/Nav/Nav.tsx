@@ -6,6 +6,7 @@ import classes from './Nav.module.scss';
 import DesktopNav from './DesktopNav/DesktopNav';
 import MobileNav from './MobileNav/MobileNav';
 import { HEADER_QUERYResult } from '@/sanity/types';
+import { NavProvider } from '@/lib/contexts/NavContext';
 
 interface NavProps {
   headerData: HEADER_QUERYResult;
@@ -16,10 +17,12 @@ const Nav = ({ headerData }: NavProps) => {
 
   return (
     <nav className={classes['nav']}>
-      <div className={classes['homelink-col']}>
-        <HomeLink />
-      </div>
-      {isDesktop ? <DesktopNav headerData={headerData} /> : <MobileNav />}
+      <NavProvider>
+        <div className={classes['homelink-col']}>
+          <HomeLink />
+        </div>
+        {isDesktop ? <DesktopNav headerData={headerData} /> : <MobileNav />}
+      </NavProvider>
     </nav>
   );
 };
