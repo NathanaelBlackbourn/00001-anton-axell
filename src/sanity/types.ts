@@ -74,6 +74,16 @@ export type Slug = {
   source?: string;
 };
 
+export type Contact = {
+  _id: string;
+  _type: "contact";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  phone?: string;
+  email?: string;
+};
+
 export type About = {
   _id: string;
   _type: "about";
@@ -161,11 +171,11 @@ export type HomePage = {
   introText?: string;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Slug | About | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | HomePage;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Slug | Contact | About | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | HomePage;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/queries/headerQuery.ts
 // Variable: HEADER_QUERY
-// Query: {    "about": *[_type == "about"][0]{        ...,        image {            ...,            asset->        }    },    // "about": *[_type == "about"][0],}
+// Query: {    "about": *[_type == "about"][0]{        ...,        image {            ...,            asset->        }    },    "contact": *[_type == "contact"][0]}
 export type HEADER_QUERYResult = {
   about: {
     _id: string;
@@ -202,6 +212,15 @@ export type HEADER_QUERYResult = {
     } | null;
     text?: string;
   } | null;
+  contact: {
+    _id: string;
+    _type: "contact";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    phone?: string;
+    email?: string;
+  } | null;
 };
 
 // Source: ./src/sanity/queries/pages/homePageQuery.ts
@@ -221,7 +240,7 @@ export type HOME_PAGE_QUERYResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "{\n    \"about\": *[_type == \"about\"][0]{\n        ...,\n        image {\n            ...,\n            asset->\n        }\n    },\n    // \"about\": *[_type == \"about\"][0],\n}": HEADER_QUERYResult;
+    "{\n    \"about\": *[_type == \"about\"][0]{\n        ...,\n        image {\n            ...,\n            asset->\n        }\n    },\n    \"contact\": *[_type == \"contact\"][0]\n}": HEADER_QUERYResult;
     "*[_type == \"homePage\"][0]": HOME_PAGE_QUERYResult;
   }
 }

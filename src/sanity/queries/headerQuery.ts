@@ -8,4 +8,5 @@ export const HEADER_QUERY = groq`{
             asset->
         }
     },
+    "contact": *[_type == "contact"][0]
 }`;

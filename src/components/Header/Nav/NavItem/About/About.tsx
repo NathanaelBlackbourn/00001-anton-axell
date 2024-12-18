@@ -9,7 +9,7 @@ interface AboutProps {
 
 const About = ({ aboutData }: AboutProps) => {
   return (
-    <NavItem label="About" colSpan="col-5-9">
+    <NavItem label="About">
       {aboutData?.image?.asset && (
         <SanityImage
           image={aboutData.image.asset}
