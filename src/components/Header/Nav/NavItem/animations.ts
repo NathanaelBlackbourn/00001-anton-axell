@@ -46,7 +46,6 @@ export const toggleOpen = (tl: GSAPTimeline, isOpen: boolean) => {
   };
 
   const reverseTimeline = () => {
-    console.log(tl);
     tl.data.hasPlayed && tl.reverse();
   };
 
