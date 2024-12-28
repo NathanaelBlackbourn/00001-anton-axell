@@ -8,10 +8,15 @@ import { useNavContext } from '@/lib/contexts/NavContext';
 
 interface NavItemProps {
   label: string;
+  setLoadingReady?: (isReady: boolean) => void;
   children: React.ReactNode;
 }
 
-const NavItem = ({ label, children }: NavItemProps) => {
+const NavItem = ({
+  label,
+  setLoadingReady: setIsLoadingReady,
+  children,
+}: NavItemProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const childrenRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -29,11 +34,12 @@ const NavItem = ({ label, children }: NavItemProps) => {
           timeline: createTimeline(
             containerRef.current,
             childrenRef.current,
-            closeButtonRef.current
+            closeButtonRef.current,
+            setIsLoadingReady
           ),
         },
       });
-  }, [id, containerRef, childrenRef, dispatch]);
+  }, [id, containerRef, childrenRef, dispatch, setIsLoadingReady]);
 
   useEffect(() => {
     const item = itemStates.find((item) => item.id === id);

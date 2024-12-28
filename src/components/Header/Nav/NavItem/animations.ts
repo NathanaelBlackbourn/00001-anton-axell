@@ -3,7 +3,8 @@ import gsap from 'gsap';
 export const createTimeline = (
   container: HTMLDivElement,
   children: HTMLDivElement,
-  closeButton: HTMLButtonElement
+  closeButton: HTMLButtonElement,
+  setLoadingReady?: (isReady: boolean) => void
 ) =>
   gsap
     .timeline({
@@ -18,6 +19,9 @@ export const createTimeline = (
     })
     .set(children, {
       display: 'block',
+      onComplete: () => {
+        setLoadingReady && setLoadingReady(true);
+      },
     })
     .set(closeButton, {
       display: 'block',
