@@ -1,5 +1,5 @@
 import { RefObject } from 'react';
-import gsap from 'gsap';
+import { gsap } from '@/lib/gsap';
 import cursorStyles from './Cursor.module.scss';
 
 export const tweenToPosition = (

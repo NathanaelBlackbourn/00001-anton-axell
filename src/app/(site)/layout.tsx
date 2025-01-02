@@ -4,6 +4,7 @@ import classes from './layout.module.scss';
 import { CursorProvider } from '@/lib/contexts/CursorContext';
 import { HEADER_QUERY } from '@/sanity/queries/headerQuery';
 import { sanityFetch } from '@/sanity/lib/live';
+
 // TODO: Async fetch metadata
 export const metadata: Metadata = {
   title: 'Anton Axell',

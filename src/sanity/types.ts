@@ -74,6 +74,33 @@ export type Slug = {
   source?: string;
 };
 
+export type SlaskBlock = {
+  _type: "slaskBlock";
+  head?: Array<{
+    _key: string;
+  } & SlaskImg>;
+  body?: Array<{
+    _key: string;
+  } & SlaskImg>;
+};
+
+export type SlaskImg = {
+  _type: "slaskImg";
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  colStart?: number;
+  colEnd?: number;
+};
+
 export type Contact = {
   _id: string;
   _type: "contact";
@@ -102,6 +129,18 @@ export type About = {
     _type: "image";
   };
   text?: string;
+};
+
+export type HomePage = {
+  _id: string;
+  _type: "homePage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slask?: Array<{
+    _key: string;
+  } & SlaskBlock>;
 };
 
 export type SanityImageCrop = {
@@ -161,17 +200,7 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 
-export type HomePage = {
-  _id: string;
-  _type: "homePage";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  introText?: string;
-};
-
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Slug | Contact | About | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | HomePage;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Slug | SlaskBlock | SlaskImg | Contact | About | HomePage | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/queries/headerQuery.ts
 // Variable: HEADER_QUERY
@@ -224,16 +253,80 @@ export type HEADER_QUERYResult = {
 };
 
 // Source: ./src/sanity/queries/pages/homePageQuery.ts
+// Variable: slaskImg
+// Query: {    ...,    image {        ...,        asset->    }}
+export type SlaskImgResult = never;
 // Variable: HOME_PAGE_QUERY
-// Query: *[_type == "homePage"][0]
+// Query: *[_type == "homePage"][0]{    slask[]{        body[]{    ...,    image {        ...,        asset->    }},        head[]{    ...,    image {        ...,        asset->    }}    }}
 export type HOME_PAGE_QUERYResult = {
-  _id: string;
-  _type: "homePage";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  introText?: string;
+  slask: Array<{
+    body: Array<{
+      _key: string;
+      _type: "slaskImg";
+      image: {
+        asset: {
+          _id: string;
+          _type: "sanity.imageAsset";
+          _createdAt: string;
+          _updatedAt: string;
+          _rev: string;
+          originalFilename?: string;
+          label?: string;
+          title?: string;
+          description?: string;
+          altText?: string;
+          sha1hash?: string;
+          extension?: string;
+          mimeType?: string;
+          size?: number;
+          assetId?: string;
+          uploadId?: string;
+          path?: string;
+          url?: string;
+          metadata?: SanityImageMetadata;
+          source?: SanityAssetSourceData;
+        } | null;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+      colStart?: number;
+      colEnd?: number;
+    }> | null;
+    head: Array<{
+      _key: string;
+      _type: "slaskImg";
+      image: {
+        asset: {
+          _id: string;
+          _type: "sanity.imageAsset";
+          _createdAt: string;
+          _updatedAt: string;
+          _rev: string;
+          originalFilename?: string;
+          label?: string;
+          title?: string;
+          description?: string;
+          altText?: string;
+          sha1hash?: string;
+          extension?: string;
+          mimeType?: string;
+          size?: number;
+          assetId?: string;
+          uploadId?: string;
+          path?: string;
+          url?: string;
+          metadata?: SanityImageMetadata;
+          source?: SanityAssetSourceData;
+        } | null;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      } | null;
+      colStart?: number;
+      colEnd?: number;
+    }> | null;
+  }> | null;
 } | null;
 
 // Query TypeMap
@@ -241,6 +334,7 @@ import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     "{\n    \"about\": *[_type == \"about\"][0]{\n        ...,\n        image {\n            ...,\n            asset->\n        }\n    },\n    \"contact\": *[_type == \"contact\"][0]\n}": HEADER_QUERYResult;
-    "*[_type == \"homePage\"][0]": HOME_PAGE_QUERYResult;
+    "{\n    ...,\n    image {\n        ...,\n        asset->\n    }\n}": SlaskImgResult;
+    "*[_type == \"homePage\"][0]{\n    slask[]{\n        body[]{\n    ...,\n    image {\n        ...,\n        asset->\n    }\n},\n        head[]{\n    ...,\n    image {\n        ...,\n        asset->\n    }\n}\n    }\n}": HOME_PAGE_QUERYResult;
   }
 }

@@ -1,4 +1,3 @@
-import registerGSAPPlugins from '@/lib/registerGSAPPlugins';
 import '../styles/globals.scss';
 import {
   Source_Serif_4,
@@ -30,8 +29,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  registerGSAPPlugins();
-
   return (
     <html
       lang="en"

@@ -17,7 +17,9 @@ const SanityImage = ({
   className,
 }: SanityImageProps) => {
   const frameRef = useRef<HTMLDivElement>(null);
-  const [width, setWidth] = useState<number | null>(null);
+  const [size, setSize] = useState<{ width: number; height: number } | null>(
+    null
+  );
 
   // TODO: Will need some kind of url builder here to fix sanity image sizes
   // Will not want to fetch at every resize event
@@ -25,7 +27,11 @@ const SanityImage = ({
     if (!frameRef.current) return;
 
     const resolveSize = () => {
-      isLoadingReady && setWidth(frameRef.current?.clientWidth || null);
+      isLoadingReady &&
+        setSize({
+          width: frameRef.current?.clientWidth || 0,
+          height: frameRef.current?.clientHeight || 0,
+        });
     };
 
     resolveSize();
@@ -37,24 +43,20 @@ const SanityImage = ({
     };
   }, [frameRef, asset, isLoadingReady]);
 
-  useEffect(() => {
-    console.log('isLoadingReady', isLoadingReady);
-  }, [isLoadingReady]);
-
   return (
     <div
-      className={`${classes['frame']}${className ? ' ' + className : ''}`}
+      className={`${classes['frame']} ${className ? ' ' + className : ''}`}
+      style={{ aspectRatio: asset.metadata?.dimensions?.aspectRatio }}
       ref={frameRef}
     >
-      {asset.url && width && asset.metadata?.dimensions?.aspectRatio && (
+      {asset.url && size && asset.metadata?.dimensions?.aspectRatio && (
         <Image
           src={asset.url}
           className={classes['image']}
           alt={asset.altText || 'alt'}
-          width={width}
-          height={width / asset.metadata?.dimensions?.aspectRatio}
           placeholder="blur"
           blurDataURL={asset.metadata?.lqip}
+          fill
         />
       )}
     </div>

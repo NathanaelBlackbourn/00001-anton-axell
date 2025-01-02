@@ -1,0 +1,24 @@
+@import '../../../styles/variables/breakpoints.module.scss';
+
+.media {
+  width: 100%;
+
+  z-index: -1;
+}
+
+.media-wrapper-head {
+  grid-column: span 16;
+
+  @media (min-width: $lg) {
+    grid-column: var(--lg-col-pos);
+  }
+}
+
+.media-wrapper-body {
+  grid-column: span 15;
+  grid-column-start: 1;
+
+  @media (min-width: $lg) {
+    grid-column: var(--lg-col-pos);
+  }
+}

@@ -6,16 +6,20 @@ const homePage: SchemaTypeDefinition = {
   type: 'document',
   fields: [
     {
-      name: 'title',
       title: 'Title',
+      name: 'title',
       type: 'string',
       hidden: true,
     },
     {
-      name: 'introText',
-      title: 'Intro text',
-      type: 'string',
-      validation: (Rule) => Rule.required().max(300),
+      title: 'Slask',
+      name: 'slask',
+      type: 'array',
+      of: [
+        {
+          type: 'slaskBlock',
+        },
+      ],
     },
   ],
 };

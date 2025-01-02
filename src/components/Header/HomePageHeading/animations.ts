@@ -1,5 +1,5 @@
 import { RefObject } from 'react';
-import gsap from 'gsap';
+import { gsap } from '@/lib/gsap';
 
 export const toggleHeading = (
   containerRef: RefObject<HTMLDivElement>,
