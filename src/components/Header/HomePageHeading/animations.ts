@@ -1,24 +1,50 @@
 import { RefObject } from 'react';
 import { gsap } from '@/lib/gsap';
 
-export const toggleHeading = (
-  containerRef: RefObject<HTMLDivElement>,
+export const controlHeaderToggle = (
   headingRef: RefObject<HTMLHeadingElement>,
   pathname: string
 ) => {
-  const toggleOff = () => {
-    gsap
-      .timeline()
-      .to(containerRef.current, { height: 0, duration: 1 })
-      .set(headingRef.current, { display: 'none' });
-  };
+  let scrollTriggerTimeline: GSAPTimeline | null = null;
 
-  const toggleOn = () => {
-    gsap
-      .timeline()
-      .set(headingRef.current, { display: 'grid' })
-      .to(containerRef.current, { height: 'auto', duration: 1 });
-  };
-
-  pathname === '/' ? toggleOn() : toggleOff();
+  pathname === '/'
+    ? gsap
+        .timeline({
+          onComplete: () => {
+            scrollTriggerTimeline = gsap
+              .timeline({
+                scrollTrigger: {
+                  trigger: headingRef.current,
+                  scroller: 'main',
+                  start: '10px',
+                  end: 'bottom top',
+                  scrub: true,
+                },
+              })
+              .fromTo(
+                headingRef.current,
+                { height: headingRef.current?.offsetHeight },
+                { height: 0, duration: 0.5, ease: 'linear' }
+              )
+              .set(headingRef.current, { display: 'none' });
+          },
+        })
+        .set(headingRef.current, { display: 'grid' })
+        .to(headingRef.current, {
+          height: '0.9em',
+          duration: 0.5,
+          ease: 'linear',
+        })
+    : gsap
+        .timeline({
+          onStart: () => {
+            scrollTriggerTimeline?.kill();
+          },
+        })
+        .fromTo(
+          headingRef.current,
+          { height: headingRef.current?.offsetHeight },
+          { height: 0, duration: 0.5, ease: 'linear' }
+        )
+        .set(headingRef.current, { display: 'none' });
 };
