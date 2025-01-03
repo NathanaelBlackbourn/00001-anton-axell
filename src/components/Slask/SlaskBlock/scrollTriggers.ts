@@ -18,6 +18,5 @@ export const createHeadTrigger = (
     pin: true,
     pinSpacing: false,
     scroller: 'main',
-    markers: true,
   });
 };
