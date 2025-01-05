@@ -7,8 +7,6 @@ type WebhookPayload = {
 };
 
 export async function POST(req: NextRequest) {
-  console.log('Revalidation begin');
-
   try {
     if (!process.env.SANITY_REVALIDATE_SECRET) {
       return new Response('Missing secret', { status: 401 });
@@ -30,8 +28,6 @@ export async function POST(req: NextRequest) {
     }
 
     revalidateTag(body._type);
-
-    console.log('Revalidation completed for', body._type);
 
     return NextResponse.json({ body });
   } catch (err) {
