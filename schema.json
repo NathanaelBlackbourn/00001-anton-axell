@@ -699,13 +699,6 @@
           "type": "string"
         }
       },
-      "title": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
-      },
       "slask": {
         "type": "objectAttribute",
         "value": {

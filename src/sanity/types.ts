@@ -137,7 +137,6 @@ export type HomePage = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title?: string;
   slask?: Array<{
     _key: string;
   } & SlaskBlock>;
@@ -204,7 +203,7 @@ export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/queries/headerQuery.ts
 // Variable: HEADER_QUERY
-// Query: {    "about": *[_type == "about"][0]{        ...,        image {            ...,            asset->        }    },    "contact": *[_type == "contact"][0]}
+// Query: {    "about": *[_type == "about"][0]{        ...,        image {  crop,  hotspot,  "_ref": asset->_ref,  "altText": asset->altText,  "metadata": asset->metadata}    },    "contact": *[_type == "contact"][0]}
 export type HEADER_QUERYResult = {
   about: {
     _id: string;
@@ -213,31 +212,11 @@ export type HEADER_QUERYResult = {
     _updatedAt: string;
     _rev: string;
     image: {
-      asset: {
-        _id: string;
-        _type: "sanity.imageAsset";
-        _createdAt: string;
-        _updatedAt: string;
-        _rev: string;
-        originalFilename?: string;
-        label?: string;
-        title?: string;
-        description?: string;
-        altText?: string;
-        sha1hash?: string;
-        extension?: string;
-        mimeType?: string;
-        size?: number;
-        assetId?: string;
-        uploadId?: string;
-        path?: string;
-        url?: string;
-        metadata?: SanityImageMetadata;
-        source?: SanityAssetSourceData;
-      } | null;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
+      crop: SanityImageCrop | null;
+      hotspot: SanityImageHotspot | null;
+      _ref: null;
+      altText: string | null;
+      metadata: SanityImageMetadata | null;
     } | null;
     text?: string;
   } | null;
@@ -254,41 +233,21 @@ export type HEADER_QUERYResult = {
 
 // Source: ./src/sanity/queries/pages/homePageQuery.ts
 // Variable: slaskImg
-// Query: {    ...,    image {        ...,        asset->    }}
+// Query: {    ...,    image {  crop,  hotspot,  "_ref": asset->_ref,  "altText": asset->altText,  "metadata": asset->metadata}}
 export type SlaskImgResult = never;
 // Variable: HOME_PAGE_QUERY
-// Query: *[_type == "homePage"][0]{    slask[]{        body[]{    ...,    image {        ...,        asset->    }},        head[]{    ...,    image {        ...,        asset->    }}    }}
+// Query: *[_type == "homePage"][0]{    slask[]{        body[]{    ...,    image {  crop,  hotspot,  "_ref": asset->_ref,  "altText": asset->altText,  "metadata": asset->metadata}},        head[]{    ...,    image {  crop,  hotspot,  "_ref": asset->_ref,  "altText": asset->altText,  "metadata": asset->metadata}}    }}
 export type HOME_PAGE_QUERYResult = {
   slask: Array<{
     body: Array<{
       _key: string;
       _type: "slaskImg";
       image: {
-        asset: {
-          _id: string;
-          _type: "sanity.imageAsset";
-          _createdAt: string;
-          _updatedAt: string;
-          _rev: string;
-          originalFilename?: string;
-          label?: string;
-          title?: string;
-          description?: string;
-          altText?: string;
-          sha1hash?: string;
-          extension?: string;
-          mimeType?: string;
-          size?: number;
-          assetId?: string;
-          uploadId?: string;
-          path?: string;
-          url?: string;
-          metadata?: SanityImageMetadata;
-          source?: SanityAssetSourceData;
-        } | null;
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        _type: "image";
+        crop: SanityImageCrop | null;
+        hotspot: SanityImageHotspot | null;
+        _ref: null;
+        altText: string | null;
+        metadata: SanityImageMetadata | null;
       } | null;
       colStart?: number;
       colEnd?: number;
@@ -297,31 +256,11 @@ export type HOME_PAGE_QUERYResult = {
       _key: string;
       _type: "slaskImg";
       image: {
-        asset: {
-          _id: string;
-          _type: "sanity.imageAsset";
-          _createdAt: string;
-          _updatedAt: string;
-          _rev: string;
-          originalFilename?: string;
-          label?: string;
-          title?: string;
-          description?: string;
-          altText?: string;
-          sha1hash?: string;
-          extension?: string;
-          mimeType?: string;
-          size?: number;
-          assetId?: string;
-          uploadId?: string;
-          path?: string;
-          url?: string;
-          metadata?: SanityImageMetadata;
-          source?: SanityAssetSourceData;
-        } | null;
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        _type: "image";
+        crop: SanityImageCrop | null;
+        hotspot: SanityImageHotspot | null;
+        _ref: null;
+        altText: string | null;
+        metadata: SanityImageMetadata | null;
       } | null;
       colStart?: number;
       colEnd?: number;
@@ -329,12 +268,24 @@ export type HOME_PAGE_QUERYResult = {
   }> | null;
 } | null;
 
+// Source: ./src/sanity/queries/fragments/imageFragment.ts
+// Variable: IMAGE_FRAGMENT
+// Query: {  crop,  hotspot,  "_ref": asset->_ref,  "altText": asset->altText,  "metadata": asset->metadata}
+export type IMAGE_FRAGMENTResult = {
+  crop: never;
+  hotspot: never;
+  _ref: never;
+  altText: never;
+  metadata: never;
+};
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "{\n    \"about\": *[_type == \"about\"][0]{\n        ...,\n        image {\n            ...,\n            asset->\n        }\n    },\n    \"contact\": *[_type == \"contact\"][0]\n}": HEADER_QUERYResult;
-    "{\n    ...,\n    image {\n        ...,\n        asset->\n    }\n}": SlaskImgResult;
-    "*[_type == \"homePage\"][0]{\n    slask[]{\n        body[]{\n    ...,\n    image {\n        ...,\n        asset->\n    }\n},\n        head[]{\n    ...,\n    image {\n        ...,\n        asset->\n    }\n}\n    }\n}": HOME_PAGE_QUERYResult;
+    "{\n    \"about\": *[_type == \"about\"][0]{\n        ...,\n        image {\n  crop,\n  hotspot,\n  \"_ref\": asset->_ref,\n  \"altText\": asset->altText,\n  \"metadata\": asset->metadata\n}\n    },\n    \"contact\": *[_type == \"contact\"][0]\n}": HEADER_QUERYResult;
+    "{\n    ...,\n    image {\n  crop,\n  hotspot,\n  \"_ref\": asset->_ref,\n  \"altText\": asset->altText,\n  \"metadata\": asset->metadata\n}\n}": SlaskImgResult;
+    "*[_type == \"homePage\"][0]{\n    slask[]{\n        body[]{\n    ...,\n    image {\n  crop,\n  hotspot,\n  \"_ref\": asset->_ref,\n  \"altText\": asset->altText,\n  \"metadata\": asset->metadata\n}\n},\n        head[]{\n    ...,\n    image {\n  crop,\n  hotspot,\n  \"_ref\": asset->_ref,\n  \"altText\": asset->altText,\n  \"metadata\": asset->metadata\n}\n}\n    }\n}": HOME_PAGE_QUERYResult;
+    "{\n  crop,\n  hotspot,\n  \"_ref\": asset->_ref,\n  \"altText\": asset->altText,\n  \"metadata\": asset->metadata\n}": IMAGE_FRAGMENTResult;
   }
 }

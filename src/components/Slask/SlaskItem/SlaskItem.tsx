@@ -1,8 +1,8 @@
 import SanityImage from '@/components/SanityImage/SanityImage';
-import classes from './SlaskItem.module.scss';
-import { ReactNode } from 'react';
 import { HOME_PAGE_QUERYResult } from '@/sanity/types';
 import { ArrayElement } from '@/types';
+import { ReactNode } from 'react';
+import classes from './SlaskItem.module.scss';
 
 type SlaskItemResult = ArrayElement<
   NonNullable<
@@ -30,8 +30,8 @@ const SlaskItem = ({
 
     switch (_type) {
       case 'slaskImg':
-        content = image?.asset && (
-          <SanityImage asset={image!.asset} className={classes['media']} />
+        content = image?._ref && (
+          <SanityImage image={image} className={classes['media']} />
         );
 
         return (

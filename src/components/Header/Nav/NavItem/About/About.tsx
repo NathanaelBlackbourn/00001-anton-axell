@@ -1,10 +1,10 @@
 'use client';
 
+import SanityImage from '@/components/SanityImage/SanityImage';
 import { HEADER_QUERYResult } from '@/sanity/types';
+import { useState } from 'react';
 import NavItem from '../NavItem';
 import classes from './About.module.scss';
-import SanityImage from '@/components/SanityImage/SanityImage';
-import { useState } from 'react';
 
 interface AboutProps {
   aboutData: HEADER_QUERYResult['about'];
@@ -15,9 +15,9 @@ const About = ({ aboutData }: AboutProps) => {
 
   return (
     <NavItem label="About" setLoadingReady={setIsLoadingReady}>
-      {aboutData?.image?.asset && (
+      {aboutData?.image?._ref && (
         <SanityImage
-          asset={aboutData.image.asset}
+          image={aboutData.image}
           className={classes['sanity-image']}
           isLoadingReady={isLoadingReady}
         />
