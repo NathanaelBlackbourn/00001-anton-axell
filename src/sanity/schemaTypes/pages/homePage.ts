@@ -6,12 +6,6 @@ const homePage: SchemaTypeDefinition = {
   type: 'document',
   fields: [
     {
-      title: 'Title',
-      name: 'title',
-      type: 'string',
-      hidden: true,
-    },
-    {
       title: 'Slask',
       name: 'slask',
       type: 'array',
@@ -22,6 +16,11 @@ const homePage: SchemaTypeDefinition = {
       ],
     },
   ],
+  preview: {
+    prepare: () => ({
+      title: 'Home page',
+    }),
+  },
 };
 
 export default homePage;
