@@ -1,9 +1,12 @@
-import { Metadata } from 'next';
+import { DisableDraftMode } from '@/components/DisableDraftMode/DisableDraftMode';
 import Header from '@/components/Header/Header';
-import classes from './layout.module.scss';
 import { CursorProvider } from '@/lib/contexts/CursorContext';
+import { sanityFetch, SanityLive } from '@/sanity/lib/live';
 import { HEADER_QUERY } from '@/sanity/queries/headerQuery';
-import { sanityFetch } from '@/sanity/lib/live';
+import { Metadata } from 'next';
+import { VisualEditing } from 'next-sanity';
+import { draftMode } from 'next/headers';
+import classes from './layout.module.scss';
 
 // TODO: Async fetch metadata
 export const metadata: Metadata = {
@@ -26,6 +29,13 @@ export default async function SiteLayout({
         <Header headerData={data} />
         <main className={classes['main']}>{children}</main>
       </CursorProvider>
+      <SanityLive />
+      {(await draftMode()).isEnabled && (
+        <>
+          <DisableDraftMode />
+          <VisualEditing />
+        </>
+      )}
     </>
   );
 }
