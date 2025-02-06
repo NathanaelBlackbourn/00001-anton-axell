@@ -1,24 +1,34 @@
 'use client';
 
+import { CURSOR_ID } from '@/constants';
 import { useCursor } from '@/lib/contexts/CursorContext';
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import classes from './Cursor.module.scss';
-import { generateQuickTos, tweenToPosition, tweenToTarget } from './animations';
+import {
+  generateQuickSetters,
+  generateQuickTos,
+  setCursorRadius,
+  trackTarget,
+  tweenToPosition,
+  tweenToTarget,
+} from './animations';
 
 const Cursor = () => {
-  const cursorRef = useRef<HTMLDivElement>(null);
+  const [isDomLoaded, setIsDomLoaded] = useState(false);
 
   const { hoverTarget } = useCursor();
 
-  const quickTos = useMemo(() => {
-    console.log('useMemo');
-    if (!cursorRef.current) return;
-    return generateQuickTos(cursorRef.current);
-  }, [cursorRef.current]);
-
   useEffect(() => {
-    console.log(cursorRef.current);
-  }, [cursorRef]);
+    setIsDomLoaded(true);
+  }, []);
+
+  const quickTos = useMemo(() => {
+    return generateQuickTos();
+  }, [isDomLoaded]);
+
+  const quickSetters = useMemo(() => {
+    return generateQuickSetters();
+  }, [isDomLoaded]);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -31,14 +41,15 @@ const Cursor = () => {
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
     };
-  }, [hoverTarget, quickTos]);
+  }, [quickTos, hoverTarget]);
 
   useEffect(() => {
     let observer: ResizeObserver | null = null;
 
     const setObersver = () => {
       observer = new ResizeObserver(() => {
-        quickTos && tweenToTarget(quickTos, hoverTarget!);
+        if (!quickSetters || !hoverTarget) return;
+        trackTarget(quickSetters, hoverTarget);
       });
 
       observer.observe(hoverTarget!);
@@ -54,14 +65,16 @@ const Cursor = () => {
     return () => {
       disconnectObserver();
     };
-  }, [hoverTarget, quickTos]);
+  }, [hoverTarget, quickSetters]);
 
-  // useEffect(() => {
-  //   cursorRef.current &&
-  //     tweenCursorShape(cursorRef.current, hoverTarget && hoverTarget);
-  // }, [hoverTarget]);
+  useEffect(() => {
+    setCursorRadius(!!hoverTarget);
 
-  return <div ref={cursorRef} className={classes['cursor']} />;
+    if (!quickTos || !hoverTarget) return;
+    tweenToTarget(quickTos, hoverTarget);
+  }, [quickTos, hoverTarget]);
+
+  return <div id={CURSOR_ID} className={classes['cursor']} />;
 };
 
 export default Cursor;
