@@ -23,11 +23,13 @@ const Cursor = () => {
   }, []);
 
   const quickTos = useMemo(() => {
+    if (!isDomLoaded) return null;
     return generateQuickTos();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDomLoaded]);
 
   const quickSetters = useMemo(() => {
+    if (!isDomLoaded) return null;
     return generateQuickSetters();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDomLoaded]);
