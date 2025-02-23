@@ -22,12 +22,14 @@ interface SanityImageProps {
   image: ImageData;
   isLoadingReady?: boolean;
   className?: string;
+  log?: boolean;
 }
 
 const SanityImage = ({
   image,
   isLoadingReady = true,
   className,
+  log = false,
 }: SanityImageProps) => {
   const frameRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState<{ width: number; height: number } | null>(
@@ -37,7 +39,9 @@ const SanityImage = ({
   useEffect(() => {
     if (!frameRef.current) return;
 
-    const sizes = [4096, 2560, 1920, 1280, 1024, 768, 640, 320];
+    log && console.log(frameRef.current.clientWidth);
+
+    const sizes = [4096, 2560, 1920, 1280, 1024, 768, 640, 320, 160, 80, 40, 10, 0];
 
     const resolveSize = () => {
       const maxWidth =
@@ -65,6 +69,10 @@ const SanityImage = ({
       window.removeEventListener('resize', resolveSize);
     };
   }, [image, isLoadingReady]);
+
+  useEffect(() => {
+    log && console.log(size);
+  }, [size, log]);
 
   return (
     <div

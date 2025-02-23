@@ -1,4 +1,4 @@
-@import '../../../styles/variables/breakpoints.module.scss';
+@import "../../../styles/variables/breakpoints.module.scss";
 
 .media {
   width: 100%;
@@ -16,7 +16,6 @@
 
 .media-wrapper-body {
   grid-column: span 15;
-  grid-column-start: 1;
 
   @media (min-width: $lg) {
     grid-column: var(--lg-col-pos);
