@@ -11,7 +11,6 @@ export const generateQuickTos = () => {
     y: gsap.quickTo(`#${CURSOR_ID}`, 'y', { duration }),
     width: gsap.quickTo(`#${CURSOR_ID}`, 'width', { duration }),
     height: gsap.quickTo(`#${CURSOR_ID}`, 'height', { duration }),
-    borderRadius: gsap.quickTo(`#${CURSOR_ID}`, 'borderRadius', { duration }),
   };
 };
 
@@ -29,11 +28,6 @@ export const tweenToPosition = (
   x: number,
   y: number
 ) => {
-  // gsap.to(`#${CURSOR_ID}`, {
-  //   borderRadius: '50%',
-  //   duration: 0.1,
-  // });
-
   quickTos.x(x - cursorSize / 2);
   quickTos.y(y - cursorSize / 2);
   quickTos.width(cursorSize);
@@ -44,11 +38,6 @@ export const tweenToTarget = (
   quickTos: ReturnType<typeof generateQuickTos>,
   targetRef: HTMLElement
 ) => {
-  // gsap.to(`#${CURSOR_ID}`, {
-  //   borderRadius: '2px',
-  //   duration: 0.1,
-  // });
-
   const box = targetRef.getBoundingClientRect();
   Object.keys(quickTos).forEach((key) => {
     quickTos[key as keyof typeof quickTos](

@@ -24,10 +24,12 @@ const Cursor = () => {
 
   const quickTos = useMemo(() => {
     return generateQuickTos();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDomLoaded]);
 
   const quickSetters = useMemo(() => {
     return generateQuickSetters();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDomLoaded]);
 
   useEffect(() => {

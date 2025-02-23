@@ -1,4 +1,4 @@
-@import '../../styles/variables/colors.module.scss';
+@import "../../styles/variables/colors.module.scss";
 
 $cursor-size: 50px;
 
@@ -10,7 +10,7 @@ $cursor-size: 50px;
   height: $cursor-size;
   width: $cursor-size;
 
-  border-radius: 50%;
+  border-radius: $cursor-size / 2;
 
   background-color: $color-yellow;
 
