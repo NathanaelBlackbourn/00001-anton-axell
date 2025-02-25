@@ -31,7 +31,7 @@ const SlaskItem = ({
     switch (_type) {
       case 'slaskImg':
         content = image?._ref && (
-          <SanityImage image={image} className={classes['media']} log={variant === 'body'}/>
+          <SanityImage image={image} className={classes['media']}/>
         );
 
         return (
