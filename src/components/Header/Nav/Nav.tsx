@@ -1,27 +1,39 @@
 'use client';
 
-import useBreakpoint from '@/lib/hooks/useBreakpoint';
-import HomeLink from './HomeLink/HomeLink';
-import classes from './Nav.module.scss';
-import DesktopNav from './DesktopNav/DesktopNav';
-import MobileNav from './MobileNav/MobileNav';
-import { HEADER_QUERYResult } from '@/sanity/types';
 import { NavProvider } from '@/lib/contexts/NavContext';
+import useBreakpoint from '@/lib/hooks/useBreakpoint';
+import { HEADER_QUERYResult } from '@/sanity/types';
+import DesktopNav from './DesktopNav/DesktopNav';
+import HomeLink from './HomeLink/HomeLink';
+import MobileNav from './MobileNav/MobileNav';
+import classes from './Nav.module.scss';
 
 interface NavProps {
   headerData: HEADER_QUERYResult;
 }
 
 const Nav = ({ headerData }: NavProps) => {
-  const isDesktop = useBreakpoint('lg');
-
+  const isDesktop = useBreakpoint('md');
   return (
     <nav className={classes['nav']}>
       <NavProvider>
-        <div className={classes['homelink-col']}>
-          <HomeLink />
-        </div>
-        {isDesktop ? <DesktopNav headerData={headerData} /> : <MobileNav />}
+        {/* {
+          !isDesktop(
+            <div className={classes['homelink-col']}>
+              <HomeLink />
+            </div>
+          )
+        } */}
+        {isDesktop ? (
+          <>
+            <div className={classes['homelink-col']}>
+              <HomeLink key='home-link' />
+            </div>
+            <DesktopNav key='desktop-nav' {...headerData} />
+          </>
+        ) : (
+          <MobileNav key='mobile-nav' {...headerData} />
+        )}
       </NavProvider>
     </nav>
   );

@@ -1,9 +1,9 @@
 'use client';
 
+import useHover from '@/lib/hooks/useHover';
 import React from 'react';
 import { type BlurCellProps } from '../BlurCell';
 import classes from './Parent.module.scss';
-import useHover from '@/lib/hooks/useHover';
 
 const Parent = ({
   children,

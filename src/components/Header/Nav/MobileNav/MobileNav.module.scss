@@ -1,0 +1,26 @@
+@import '../../../../styles/variables/colors.module.scss';
+
+.container {
+  grid-column: 1 / 17;
+  pointer-events: none;
+
+  max-width: 500px;
+}
+
+.blur-cell {
+  pointer-events: auto;
+}
+
+.menu-icon {
+  color: $color-black;
+}
+
+.toggle-button {
+  padding: 10px;
+
+  transition: rotate 0.2s ease-in-out;
+}
+
+.toggle-button-open {
+  rotate: 45deg;
+}

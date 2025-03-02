@@ -1,7 +1,14 @@
 @import '../../../../styles/variables/typography.module.scss';
+@import '../../../../styles/variables/breakpoints.module.scss';
 
 .container {
   width: fit-content;
+  overflow: hidden;
+
+  @media (max-width: $md) {
+    height: 0;
+    width: 0;
+  }
 }
 
 .blur-cell {
@@ -12,6 +19,12 @@
 .button {
   @include type-secondary;
   text-transform: uppercase;
+
+  padding: 7px 10px;
+
+  @media (max-width: $md) {
+    padding: 0;
+  }
 }
 
 .close-button {
@@ -30,5 +43,14 @@
   height: 0;
   overflow: hidden;
 
-  padding-top: 2em;
+  padding: 2em 7px 10px 7px;
+}
+
+.label {
+  display: block;
+
+  @media (max-width: $md) {
+    height: 0;
+    overflow: hidden;
+  }
 }

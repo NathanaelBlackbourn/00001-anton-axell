@@ -2,6 +2,7 @@
 
 import Cursor from '@/components/Cursor/Cursor';
 import { createContext, useContext, useState } from 'react';
+import useBreakpoint from '../hooks/useBreakpoint';
 
 interface CursorContextType {
   hoverTarget: HTMLElement | null;
@@ -19,6 +20,8 @@ export const useCursor = () => {
 export const CursorProvider = ({ children }: { children: React.ReactNode }) => {
   const [hoverTarget, setHoverTarget] = useState<HTMLElement | null>(null);
 
+  const isSm = useBreakpoint('sm');
+
   return (
     <CursorContext.Provider
       value={{
@@ -27,7 +30,7 @@ export const CursorProvider = ({ children }: { children: React.ReactNode }) => {
       }}
     >
       {children}
-      <Cursor />
+      {isSm && <Cursor />}
     </CursorContext.Provider>
   );
 };

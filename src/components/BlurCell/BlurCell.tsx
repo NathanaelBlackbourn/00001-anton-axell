@@ -1,11 +1,12 @@
-import classes from './BlurCell.module.scss';
 import React from 'react';
+import classes from './BlurCell.module.scss';
 import Parent from './Parent/Parent';
 
 interface BaseProps {
   isHoverable?: boolean;
   children: React.ReactNode;
   className?: string;
+  isTransparent?: boolean;
 }
 
 interface DivProps extends BaseProps {
@@ -24,10 +25,12 @@ interface AnchorProps extends BaseProps {
 
 export type BlurCellProps = DivProps | ButtonProps | AnchorProps;
 
-const BlurCell = ({ children, ...props }: BlurCellProps) => {
+const BlurCell = ({ children, isTransparent, ...props }: BlurCellProps) => {
   return (
     <Parent {...props}>
-      <div className={classes['blur-bg']} />
+      <div
+        className={`${classes['blur-bg']}${!isTransparent ? ` ${classes['opaque']}` : ''}`}
+      />
       <div
         className={`${props.as === 'div' ? '' : classes['z-container']} ${classes['container']}`}
       >

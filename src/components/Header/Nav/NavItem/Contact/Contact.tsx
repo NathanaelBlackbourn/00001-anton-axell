@@ -1,13 +1,14 @@
 import { HEADER_QUERYResult } from '@/sanity/types';
-import classes from './Contact.module.scss';
 import NavItem from '../NavItem';
+import classes from './Contact.module.scss';
 interface ContactProps {
   contactData: HEADER_QUERYResult['contact'];
+  isTransparent?: boolean;
 }
 
-const Contact = ({ contactData }: ContactProps) => {
+const Contact = ({ contactData, isTransparent }: ContactProps) => {
   return (
-    <NavItem label="Contact">
+    <NavItem label='Contact' isTransparent={isTransparent}>
       <div className={classes['contact-container']}>
         <p>
           <a

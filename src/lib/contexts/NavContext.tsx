@@ -7,41 +7,54 @@ import {
   useContext,
   useReducer,
 } from 'react';
-
-interface NavContextType {
-  itemStates: ItemState[];
-  dispatch: Dispatch<ItemAction>;
-}
+import useBreakpoint from '../hooks/useBreakpoint';
 
 interface ItemState {
   id: string;
   isOpen: boolean;
-  timeline: GSAPTimeline;
+  isCollapsed: boolean;
 }
 
-interface BaseItemAction {
-  type: 'registerItem' | 'toggleItem' | 'closeAll';
-  payload: {
-    id: string;
-  };
+interface NavContextType {
+  itemStates: ItemState[];
+  dispatch: Dispatch<Action>;
+}
+interface BaseAction {
+  type: 'closeAll' | 'collapse' | 'expand' | 'registerItem' | 'toggleItem';
 }
 
-interface RegisterItemAction extends BaseItemAction {
+interface CloseAllAction extends BaseAction {
+  type: 'closeAll';
+}
+
+interface CollapseAction extends BaseAction {
+  type: 'collapse';
+}
+
+interface ExpandAction extends BaseAction {
+  type: 'expand';
+}
+
+interface RegisterItemAction extends BaseAction {
   type: 'registerItem';
   payload: {
     id: string;
-    timeline: GSAPTimeline;
   };
 }
 
-interface OtherItemAction extends BaseItemAction {
-  type: 'toggleItem' | 'closeAll';
+interface ToggleItemAction extends BaseAction {
+  type: 'toggleItem';
   payload: {
     id: string;
   };
 }
 
-type ItemAction = RegisterItemAction | OtherItemAction;
+type Action =
+  | CloseAllAction
+  | CollapseAction
+  | ExpandAction
+  | RegisterItemAction
+  | ToggleItemAction;
 
 const NavContext = createContext<NavContextType>({
   itemStates: [],
@@ -56,8 +69,22 @@ export const useNavContext = () => {
 };
 
 export const NavProvider = ({ children }: { children: React.ReactNode }) => {
-  const itemReducer = (state: ItemState[], action: ItemAction) => {
+  const isDesktop = useBreakpoint('md');
+
+  const itemReducer = (state: ItemState[], action: Action) => {
     switch (action.type) {
+      case 'closeAll':
+        return state.map((item) => ({ ...item, isOpen: false }));
+      case 'collapse':
+        if (isDesktop) return state;
+        return state.map((item) => ({
+          ...item,
+          isOpen: false,
+          isCollapsed: true,
+        }));
+      case 'expand':
+        if (isDesktop) return state;
+        return state.map((item) => ({ ...item, isCollapsed: false }));
       case 'registerItem':
         return state.find((item) => item.id === action.payload.id)
           ? state
@@ -65,8 +92,8 @@ export const NavProvider = ({ children }: { children: React.ReactNode }) => {
               ...state,
               {
                 id: action.payload.id,
+                isCollapsed: !isDesktop,
                 isOpen: false,
-                timeline: action.payload.timeline,
               },
             ];
       case 'toggleItem':
@@ -75,18 +102,21 @@ export const NavProvider = ({ children }: { children: React.ReactNode }) => {
             ? { ...item, isOpen: !item.isOpen }
             : { ...item, isOpen: false }
         );
-      case 'closeAll':
-        return state.map((item) => ({ ...item, isOpen: false }));
     }
   };
 
-  const [itemStates, dispatch] = useReducer<Reducer<ItemState[], ItemAction>>(
+  const [itemStates, dispatch] = useReducer<Reducer<ItemState[], Action>>(
     itemReducer,
     []
   );
 
   return (
-    <NavContext.Provider value={{ itemStates, dispatch }}>
+    <NavContext.Provider
+      value={{
+        itemStates,
+        dispatch,
+      }}
+    >
       {children}
     </NavContext.Provider>
   );

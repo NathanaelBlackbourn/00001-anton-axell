@@ -8,13 +8,18 @@ import classes from './About.module.scss';
 
 interface AboutProps {
   aboutData: HEADER_QUERYResult['about'];
+  isTransparent?: boolean;
 }
 
-const About = ({ aboutData }: AboutProps) => {
+const About = ({ aboutData, isTransparent }: AboutProps) => {
   const [isLoadingReady, setIsLoadingReady] = useState(false);
 
   return (
-    <NavItem label="About" setLoadingReady={setIsLoadingReady}>
+    <NavItem
+      label='About'
+      setLoadingReady={setIsLoadingReady}
+      isTransparent={isTransparent}
+    >
       {aboutData?.image?._ref && (
         <SanityImage
           image={aboutData.image}
