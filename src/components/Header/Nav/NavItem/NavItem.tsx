@@ -65,6 +65,14 @@ const NavItem = ({
     [childrenRef, closeButtonRef, containerRef, domLoaded]
   );
 
+  const isOpen = useMemo(() => {
+    return itemStates.find((item) => item.id === id)?.isOpen;
+  }, [itemStates, id]);
+
+  const toggleItem = () => {
+    dispatch({ type: isOpen ? 'closeItem' : 'openItem', payload: { id } });
+  };
+
   useEffect(() => {
     setDomLoaded(true);
   }, []);
@@ -84,7 +92,7 @@ const NavItem = ({
   useEffect(() => {
     const item = itemStates.find((item) => item.id === id);
     item && openTimeline && toggleOpen(openTimeline, item.isOpen);
-  }, [itemStates, id, openTimeline]);
+  }, [itemStates, dispatch, id, openTimeline]);
 
   useEffect(() => {
     const item = itemStates.find((item) => item.id === id);
@@ -93,7 +101,7 @@ const NavItem = ({
       collapseTimeline &&
       !isMd &&
       toggleCollapse(collapseTimeline, item.isCollapsed);
-  }, [collapseTimeline, itemStates, id, isMd]);
+  }, [collapseTimeline, itemStates, dispatch, id, isMd]);
 
   return (
     <div>
@@ -104,7 +112,7 @@ const NavItem = ({
           isTransparent={isTransparent}
         >
           <button
-            onClick={() => dispatch({ type: 'toggleItem', payload: { id } })}
+            onClick={toggleItem}
             className={classes['button']}
             ref={buttonRef}
           >
@@ -113,7 +121,7 @@ const NavItem = ({
             </span>
           </button>
           <button
-            onClick={() => dispatch({ type: 'toggleItem', payload: { id } })}
+            onClick={toggleItem}
             className={classes['close-button']}
             ref={closeButtonRef}
           >

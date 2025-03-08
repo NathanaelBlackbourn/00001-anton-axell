@@ -2,9 +2,11 @@
 
 import BlurCell from '@/components/BlurCell/BlurCell';
 import { useNavContext } from '@/lib/contexts/NavContext';
+import useDOMLoaded from '@/lib/hooks/useDOMLoaded';
+import { useIsFooter } from '@/lib/hooks/useIsFooter';
 import { HEADER_QUERYResult } from '@/sanity/types';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import About from '../NavItem/About/About';
 import Contact from '../NavItem/Contact/Contact';
@@ -16,26 +18,27 @@ interface Props {
 }
 
 const MobileNav = ({ about, contact }: Props) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [domLoaded, setDomLoaded] = useState(false);
+  const { itemStates, dispatch } = useNavContext();
+  const isDOMLoaded = useDOMLoaded();
+  const isFooter = useIsFooter();
 
-  const { dispatch } = useNavContext();
+  const isExpanded = useMemo(() => {
+    return itemStates.every((item) => !item.isCollapsed);
+  }, [itemStates]);
 
-  useEffect(() => {
-    isOpen ? dispatch({ type: 'expand' }) : dispatch({ type: 'collapse' });
-  }, [isOpen, dispatch]);
-
-  useEffect(() => {
-    setDomLoaded(true);
-  }, []);
+  useEffect(() => {}, [isFooter]);
 
   return (
     <>
       <div className={classes['container']}>
         <BlurCell className={classes['blur-cell']}>
           <button
-            onClick={() => setIsOpen(!isOpen)}
-            className={`${classes['toggle-button']} ${isOpen && classes['toggle-button-open']}`}
+            onClick={() =>
+              isExpanded
+                ? dispatch({ type: 'collapse' })
+                : dispatch({ type: 'expand' })
+            }
+            className={`${classes['toggle-button']} ${isExpanded && classes['toggle-button-open']}`}
           >
             <Image
               src={'/icons/x.svg'}
@@ -58,9 +61,9 @@ const MobileNav = ({ about, contact }: Props) => {
         </BlurCell>
       </div>
       {contact?.email &&
-        domLoaded &&
+        isDOMLoaded &&
         createPortal(
-          <CtaButton email={contact?.email} out={isOpen} />,
+          <CtaButton email={contact?.email} out={isExpanded} />,
           document.querySelector('main') as Element
         )}
     </>
