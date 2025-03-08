@@ -1,3 +1,4 @@
+import { SCROLL_CONTAINER_ID } from '@/constants';
 import { ScrollTrigger } from '@/lib/gsap';
 import breakpoints from '@/styles/variables/breakpoints.module.scss';
 export const createHeadTrigger = (
@@ -17,6 +18,6 @@ export const createHeadTrigger = (
     scrub: true,
     pin: true,
     pinSpacing: false,
-    scroller: 'main',
+    scroller: `#${SCROLL_CONTAINER_ID}`,
   });
 };

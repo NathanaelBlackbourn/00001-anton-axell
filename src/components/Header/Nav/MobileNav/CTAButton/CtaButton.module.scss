@@ -1,20 +1,38 @@
 @import '../../../../../styles/variables/colors.module.scss';
 @import '../../../../../styles/variables/typography.module.scss';
 
-.button {
-  position: fixed;
-  bottom: 1em;
-  right: 1em;
-
-  padding: 7px 10px;
-
-  background: $color-yellow;
-
+.container {
   @include type-secondary;
+
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding: 1em;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  pointer-events: none;
 
   transition: translate 0.2s ease-in-out;
 }
 
 .out {
-  translate: calc(100% + 10px);
+  translate: 100%;
+}
+
+.button {
+  @include type-secondary;
+
+  border-radius: 50%;
+
+  padding: 7px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: $color-yellow;
+
+  pointer-events: auto;
 }

@@ -1,5 +1,6 @@
-import { RefObject } from 'react';
+import { SCROLL_CONTAINER_ID } from '@/constants';
 import { gsap } from '@/lib/gsap';
+import { RefObject } from 'react';
 
 export const controlHeaderToggle = (
   headingRef: RefObject<HTMLHeadingElement>,
@@ -15,7 +16,7 @@ export const controlHeaderToggle = (
               .timeline({
                 scrollTrigger: {
                   trigger: headingRef.current,
-                  scroller: 'main',
+                  scroller: `#${SCROLL_CONTAINER_ID}`,
                   start: '10px',
                   end: 'bottom top',
                   scrub: true,

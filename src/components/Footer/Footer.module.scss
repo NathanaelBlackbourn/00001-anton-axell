@@ -1,0 +1,8 @@
+@import '../../styles/variables/layout.module.scss';
+
+.footer {
+  @include grid-main;
+
+  width: 100%;
+  height: 100svh;
+}
