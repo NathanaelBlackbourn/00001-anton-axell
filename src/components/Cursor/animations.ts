@@ -1,8 +1,5 @@
 import { CURSOR_ID } from '@/constants';
 import { gsap } from '@/lib/gsap';
-import cursorStyles from './Cursor.module.scss';
-
-const cursorSize = parseInt(cursorStyles.cursorSize);
 
 export const generateQuickTos = () => {
   const duration = 0.1;
@@ -26,12 +23,20 @@ export const generateQuickSetters = () => {
 export const tweenToPosition = (
   quickTos: ReturnType<typeof generateQuickTos>,
   x: number,
-  y: number
+  y: number,
+  cursorSize: number
 ) => {
   quickTos.x(x - cursorSize / 2);
   quickTos.y(y - cursorSize / 2);
-  quickTos.width(cursorSize);
-  quickTos.height(cursorSize);
+};
+
+export const tweenSize = (hasTarget: boolean, cursorSize: number) => {
+  if (hasTarget) return;
+  gsap.to(`#${CURSOR_ID}`, {
+    width: cursorSize,
+    height: cursorSize,
+    duration: 0.2,
+  });
 };
 
 export const tweenToTarget = (
@@ -58,9 +63,18 @@ export const trackTarget = (
   });
 };
 
-export const setCursorRadius = (hasTarget: boolean) => {
+export const setCursorRadius = (hasTarget: boolean, cursorSize: number) => {
   gsap.to(`#${CURSOR_ID}`, {
-    borderRadius: hasTarget ? '2px' : '25px',
+    borderRadius: hasTarget ? '2px' : cursorSize / 2 + 'px',
     duration: 0.1,
+  });
+};
+
+export const footerTween = (isFooter: boolean) => {
+  gsap.to(`#${CURSOR_ID}`, {
+    height: isFooter ? '200px' : '50px',
+    width: isFooter ? '200px' : '50px',
+    duration: 0.3,
+    ease: 'power2.inOut',
   });
 };

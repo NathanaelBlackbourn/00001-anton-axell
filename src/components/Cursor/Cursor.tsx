@@ -2,6 +2,7 @@
 
 import { CURSOR_ID } from '@/constants';
 import { useCursor } from '@/lib/contexts/CursorContext';
+import { useIsFooter } from '@/lib/hooks/useIsFooter';
 import { useEffect, useMemo, useState } from 'react';
 import classes from './Cursor.module.scss';
 import {
@@ -9,6 +10,7 @@ import {
   generateQuickTos,
   setCursorRadius,
   trackTarget,
+  tweenSize,
   tweenToPosition,
   tweenToTarget,
 } from './animations';
@@ -16,7 +18,8 @@ import {
 const Cursor = () => {
   const [isDomLoaded, setIsDomLoaded] = useState(false);
 
-  const { hoverTarget } = useCursor();
+  const { hoverTarget, cursorSize } = useCursor();
+  const isFooter = useIsFooter();
 
   useEffect(() => {
     setIsDomLoaded(true);
@@ -37,7 +40,7 @@ const Cursor = () => {
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (hoverTarget) return;
-      quickTos && tweenToPosition(quickTos, e.clientX, e.clientY);
+      quickTos && tweenToPosition(quickTos, e.clientX, e.clientY, cursorSize);
     };
 
     window.addEventListener('mousemove', handleMouseMove);
@@ -45,7 +48,7 @@ const Cursor = () => {
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
     };
-  }, [quickTos, hoverTarget]);
+  }, [quickTos, hoverTarget, cursorSize]);
 
   useEffect(() => {
     let observer: ResizeObserver | null = null;
@@ -72,13 +75,25 @@ const Cursor = () => {
   }, [hoverTarget, quickSetters]);
 
   useEffect(() => {
-    setCursorRadius(!!hoverTarget);
+    setCursorRadius(!!hoverTarget, cursorSize);
 
     if (!quickTos || !hoverTarget) return;
     tweenToTarget(quickTos, hoverTarget);
-  }, [quickTos, hoverTarget]);
+  }, [quickTos, hoverTarget, cursorSize]);
 
-  return <div id={CURSOR_ID} className={classes['cursor']} />;
+  useEffect(() => {
+    tweenSize(!!hoverTarget, cursorSize);
+  }, [hoverTarget, cursorSize]);
+
+  return (
+    <div id={CURSOR_ID} className={`${classes['cursor']}`}>
+      <p
+        className={`${classes['end']}${isFooter && !hoverTarget ? ` ${classes['footer-end']}` : ''}`}
+      >
+        End
+      </p>
+    </div>
+  );
 };
 
 export default Cursor;
