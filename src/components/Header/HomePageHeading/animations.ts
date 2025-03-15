@@ -33,7 +33,7 @@ export const controlHeaderToggle = (
         .set(headingRef.current, { display: 'grid' })
         .to(headingRef.current, {
           height: '0.9em',
-          duration: 0.5,
+          duration: 0.3,
           ease: 'linear',
         })
     : gsap
