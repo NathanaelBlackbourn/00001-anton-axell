@@ -2,12 +2,11 @@
 @import '../../../../styles/variables/breakpoints.module.scss';
 
 .container {
-  display: none;
-
   width: fit-content;
   overflow: hidden;
 
   @media (max-width: $md) {
+    display: none;
     opacity: 0;
     transform: translateY(5px);
   }
