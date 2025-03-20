@@ -3,10 +3,9 @@
 import BlurCell from '@/components/BlurCell/BlurCell';
 import { useNavContext } from '@/lib/contexts/NavContext';
 import useDOMLoaded from '@/lib/hooks/useDOMLoaded';
-import { useIsFooter } from '@/lib/hooks/useIsFooter';
 import { HEADER_QUERYResult } from '@/sanity/types';
 import Image from 'next/image';
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import About from '../NavItem/About/About';
 import Contact from '../NavItem/Contact/Contact';
@@ -20,18 +19,15 @@ interface Props {
 const MobileNav = ({ about, contact }: Props) => {
   const { itemStates, dispatch } = useNavContext();
   const isDOMLoaded = useDOMLoaded();
-  const isFooter = useIsFooter();
 
   const isExpanded = useMemo(() => {
     return itemStates.every((item) => !item.isCollapsed);
   }, [itemStates]);
 
-  useEffect(() => {}, [isFooter]);
-
   return (
     <>
       <div className={classes['container']}>
-        <BlurCell className={classes['blur-cell']}>
+        <BlurCell>
           <button
             onClick={() =>
               isExpanded
@@ -48,17 +44,17 @@ const MobileNav = ({ about, contact }: Props) => {
               className={classes['menu-icon']}
             />
           </button>
-          <div className={`${classes['nav-container']}`}>
-            <ul className={classes['nav-list']}>
-              <li>
-                <About aboutData={about} isTransparent />
-              </li>
-              <li>
-                <Contact contactData={contact} isTransparent />
-              </li>
-            </ul>
-          </div>
         </BlurCell>
+        <div className={`${classes['nav-container']}`}>
+          <ul className={classes['nav-list']}>
+            <li>
+              <About aboutData={about} />
+            </li>
+            <li>
+              <Contact contactData={contact} />
+            </li>
+          </ul>
+        </div>
       </div>
       {contact?.email &&
         isDOMLoaded &&

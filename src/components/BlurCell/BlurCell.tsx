@@ -6,7 +6,6 @@ interface BaseProps {
   isHoverable?: boolean;
   children: React.ReactNode;
   className?: string;
-  isTransparent?: boolean;
 }
 
 interface DivProps extends BaseProps {
@@ -25,12 +24,10 @@ interface AnchorProps extends BaseProps {
 
 export type BlurCellProps = DivProps | ButtonProps | AnchorProps;
 
-const BlurCell = ({ children, isTransparent, ...props }: BlurCellProps) => {
+const BlurCell = ({ children, ...props }: BlurCellProps) => {
   return (
     <Parent {...props}>
-      <div
-        className={`${classes['blur-bg']}${!isTransparent ? ` ${classes['opaque']}` : ''}`}
-      />
+      <div className={`${classes['blur-bg']}`} />
       <div
         className={`${props.as === 'div' ? '' : classes['z-container']} ${classes['container']}`}
       >

@@ -16,14 +16,12 @@ interface NavItemProps {
   label: string;
   setLoadingReady?: (isReady: boolean) => void;
   children: React.ReactNode;
-  isTransparent?: boolean;
 }
 
 const NavItem = ({
   label,
   setLoadingReady: setIsLoadingReady,
   children,
-  isTransparent = false,
 }: NavItemProps) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -41,11 +39,7 @@ const NavItem = ({
       buttonRef.current &&
       containerRef.current &&
       labelRef.current &&
-      createCollapseTimeline(
-        buttonRef.current,
-        containerRef.current,
-        labelRef.current
-      ),
+      createCollapseTimeline(containerRef.current),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [buttonRef, containerRef, labelRef, domLoaded]
   );
@@ -106,11 +100,7 @@ const NavItem = ({
   return (
     <div>
       <div className={classes['container']} ref={containerRef}>
-        <BlurCell
-          className={classes['blur-cell']}
-          isHoverable
-          isTransparent={isTransparent}
-        >
+        <BlurCell className={classes['blur-cell']} isHoverable>
           <button
             onClick={toggleItem}
             className={classes['button']}

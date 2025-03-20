@@ -29,13 +29,13 @@ const CtaButton = ({ email, out }: Props) => {
 
   return (
     <div
-      className={`${classes['container']}${out && !isFooter ? ` ${classes['out']}` : ''}`}
+      className={`${classes['container']}${out && !isFooter ? ` ${classes['out']}` : ''}${isFooter ? ` ${classes['footer']}` : ''}`}
       ref={containerRef}
     >
       <button
-        className={`${classes['button']}${
-          isFooter ? ` ${classes['footer']}` : ''
-        }`}
+        className={`${
+          isFooter ? ` ${classes['footer']}` : ` ${classes['not-footer']}`
+        } ${classes['button']}`}
         onClick={() => !isFooter && window.open(`mailto:${email}`, '_blank')}
         ref={CTARef}
       >

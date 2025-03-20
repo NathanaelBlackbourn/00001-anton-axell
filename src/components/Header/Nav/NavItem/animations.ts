@@ -56,11 +56,7 @@ export const toggleOpen = (tl: GSAPTimeline, isOpen: boolean) => {
   isOpen ? playTimeline() : reverseTimeline();
 };
 
-export const createCollapseTimeline = (
-  button: HTMLButtonElement,
-  container: HTMLDivElement,
-  label: HTMLSpanElement
-) =>
+export const createCollapseTimeline = (container: HTMLDivElement) =>
   gsap
     .timeline({
       paused: true,
@@ -69,28 +65,8 @@ export const createCollapseTimeline = (
       display: 'block',
     })
     .to(container, {
-      height: 'auto',
-      width: 'auto',
-      duration: 0.2,
-    })
-    .to(
-      button,
-      {
-        padding: '7px 10px',
-        duration: 0.2,
-      },
-      '<'
-    )
-    .to(
-      label,
-      {
-        width: 'auto',
-        duration: 0.2,
-      },
-      '<'
-    )
-    .to(label, {
-      height: 'auto',
+      opacity: 1,
+      top: '0px',
       duration: 0.2,
     });
 

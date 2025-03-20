@@ -5,10 +5,12 @@
   pointer-events: none;
 
   max-width: 500px;
-}
 
-.blur-cell {
-  pointer-events: auto;
+  z-index: 100;
+
+  & > * {
+    pointer-events: auto;
+  }
 }
 
 .menu-icon {
@@ -17,6 +19,7 @@
 
 .toggle-button {
   padding: 10px;
+  line-height: 1;
 
   transition: rotate 0.2s ease-in-out;
 }

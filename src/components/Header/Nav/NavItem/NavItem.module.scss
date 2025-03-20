@@ -2,12 +2,14 @@
 @import '../../../../styles/variables/breakpoints.module.scss';
 
 .container {
+  display: none;
+
   width: fit-content;
   overflow: hidden;
 
   @media (max-width: $md) {
-    height: 0;
-    width: 0;
+    opacity: 0;
+    transform: translateY(5px);
   }
 }
 
@@ -21,10 +23,6 @@
   text-transform: uppercase;
 
   padding: 7px 10px;
-
-  @media (max-width: $md) {
-    padding: 0;
-  }
 }
 
 .close-button {
@@ -40,7 +38,6 @@
 .children {
   display: none;
   opacity: 0;
-  height: 0;
   overflow: hidden;
 
   padding: 2em 7px 10px 7px;
@@ -48,9 +45,4 @@
 
 .label {
   display: block;
-
-  @media (max-width: $md) {
-    height: 0;
-    overflow: hidden;
-  }
 }

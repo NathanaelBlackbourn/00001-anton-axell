@@ -7,10 +7,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-}
-
-.opaque {
-  backdrop-filter: blur(7px);
+  backdrop-filter: blur(10px);
   background-color: $color-bg-60;
 }
 

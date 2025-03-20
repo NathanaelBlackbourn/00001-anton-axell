@@ -3,12 +3,11 @@ import NavItem from '../NavItem';
 import classes from './Contact.module.scss';
 interface ContactProps {
   contactData: HEADER_QUERYResult['contact'];
-  isTransparent?: boolean;
 }
 
-const Contact = ({ contactData, isTransparent }: ContactProps) => {
+const Contact = ({ contactData }: ContactProps) => {
   return (
-    <NavItem label='Contact' isTransparent={isTransparent}>
+    <NavItem label='Contact'>
       <div className={classes['contact-container']}>
         <p>
           <a

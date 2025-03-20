@@ -22,6 +22,14 @@
   translate: 100%;
 }
 
+.footer {
+  pointer-events: none;
+}
+
+.not-footer {
+  pointer-events: auto;
+}
+
 .button {
   @include type-secondary;
 
@@ -33,6 +41,4 @@
   justify-content: center;
 
   background: $color-yellow;
-
-  pointer-events: auto;
 }
