@@ -17,13 +17,6 @@ const Nav = ({ headerData }: NavProps) => {
   return (
     <nav className={classes['nav']}>
       <NavProvider>
-        {/* {
-          !isDesktop(
-            <div className={classes['homelink-col']}>
-              <HomeLink />
-            </div>
-          )
-        } */}
         {isDesktop ? (
           <>
             <div className={classes['homelink-col']}>

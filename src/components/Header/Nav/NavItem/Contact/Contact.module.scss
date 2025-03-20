@@ -1,7 +1,7 @@
 @import '../../../../../styles/variables/typography.module.scss';
 
 .contact-link {
-  @include type-sm;
+  @include type-secondary;
 
   text-decoration: underline;
   text-decoration-thickness: 1px;

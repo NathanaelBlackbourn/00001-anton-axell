@@ -6,6 +6,12 @@
   grid-column: 1 / 17;
 
   padding-top: 7px;
+
+  pointer-events: none;
+
+  & > * {
+    pointer-events: auto;
+  }
 }
 
 .homelink-col {

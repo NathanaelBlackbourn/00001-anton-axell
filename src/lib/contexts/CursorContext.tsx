@@ -22,7 +22,7 @@ export const useCursor = () => {
 export const CursorProvider = ({ children }: { children: React.ReactNode }) => {
   const [hoverTarget, setHoverTarget] = useState<HTMLElement | null>(null);
 
-  const isSm = useBreakpoint('sm');
+  const isMd = useBreakpoint('md');
   const isFooter = useIsFooter();
 
   const cursorSize = useMemo(() => {
@@ -38,7 +38,7 @@ export const CursorProvider = ({ children }: { children: React.ReactNode }) => {
       }}
     >
       {children}
-      {isSm && <Cursor />}
+      {isMd && <Cursor />}
     </CursorContext.Provider>
   );
 };
