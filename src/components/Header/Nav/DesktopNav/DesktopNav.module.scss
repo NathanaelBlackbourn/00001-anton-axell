@@ -1,7 +1,21 @@
+@mixin col {
+  padding: 0 5px;
+}
+
+.homelink-col {
+  @include col;
+
+  grid-column: 1 / 5;
+}
+
 .col-1 {
+  @include col;
+
   grid-column: 5 / 9;
 }
 
 .col-2 {
+  @include col;
+
   grid-column: 13 / 17;
 }

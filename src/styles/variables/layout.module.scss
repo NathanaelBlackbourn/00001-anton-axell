@@ -1,7 +1,7 @@
 @mixin grid-main {
   display: grid;
   grid-template-columns: repeat(16, 1fr);
-  gap: 10px;
+  gap: 15px;
 
   padding: 0 7px;
 }

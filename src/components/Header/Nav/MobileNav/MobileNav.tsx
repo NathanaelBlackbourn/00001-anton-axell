@@ -11,6 +11,7 @@ import About from '../NavItem/About/About';
 import Contact from '../NavItem/Contact/Contact';
 import CtaButton from './CTAButton/CTAButton';
 import classes from './MobileNav.module.scss';
+
 interface Props {
   about: HEADER_QUERYResult['about'];
   contact: HEADER_QUERYResult['contact'];

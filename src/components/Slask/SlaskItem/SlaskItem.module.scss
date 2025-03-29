@@ -17,6 +17,8 @@
 .media-wrapper-body {
   grid-column: span 15;
 
+  padding-bottom: 30px;
+
   @media (min-width: $md) {
     grid-column: var(--lg-col-pos);
   }
