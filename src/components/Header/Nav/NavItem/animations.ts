@@ -15,7 +15,7 @@ export const createOpenTimeline = (
     })
     .to(container, {
       width: '100%',
-      duration: 0.3,
+      duration: 0.15,
     })
     .set(children, {
       display: 'block',
@@ -28,7 +28,7 @@ export const createOpenTimeline = (
     })
     .to(children, {
       height: 'auto',
-      duration: 0.2,
+      duration: 0.15,
     })
     .to(children, {
       opacity: 1,
